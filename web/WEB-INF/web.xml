@@ -16,6 +16,14 @@
         <servlet-name>ProductController</servlet-name>
         <url-pattern>/Product</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>controllers.RegisterController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Auth</welcome-file>
     </welcome-file-list>

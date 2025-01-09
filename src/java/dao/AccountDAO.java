@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import utils.DBUtils;
 import utils.enums.AccountRole;
 
@@ -18,6 +20,28 @@ import utils.enums.AccountRole;
  * @author vothimaihoa
  */
 public class AccountDAO {
+    
+    public boolean create(Account account, int role){
+        boolean status = false;
+        String sql = "INSERT INTO Account(username, password, role) VALUES(?, ?, ?)";
+        try{
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, account.getUsername());
+            ps.setString(2, account.getPassword());
+            ps.setInt(3, role);
+            int rows = ps.executeUpdate();
+            if(rows > 0){
+                status = true;
+            }
+        }catch (ClassNotFoundException ex) {
+            System.out.println("DBUtils not found.");
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception in getting product by id. Details: ");
+            ex.printStackTrace();
+        }
+        return status;
+    }
 
     public Account getById(int id) {
         Account a = null;
@@ -74,5 +98,25 @@ public class AccountDAO {
             ex.printStackTrace();
         }
         return a;
+    }
+    
+    public List<String> getAllAccount(){
+        List<String> usernameList = new ArrayList<>();
+        String sql = "SELECT username FROM Account";
+        try{
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                usernameList.add(rs.getString("username"));
+            }
+        }catch (ClassNotFoundException ex) {
+            System.out.println("DBUtils not found.");
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception in getting product by id. Details: ");
+            ex.printStackTrace();
+        }
+        return usernameList;
+        //return null;
     }
 }

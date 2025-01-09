@@ -8,6 +8,7 @@
 <%@page import="entities.Category"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,6 +17,7 @@
     </head>
     <body>
         <!-- Search by category(drop down) and name (text box) - Add -->
+        
         <h1>Product Page</h1>
         <br>
 
@@ -56,6 +58,9 @@
 
         <!--PRODUCT LIST-->
         <%
+            String role = (String) session.getAttribute("role");
+        %>
+        <%
             List<Product> products = (List<Product>) request.getAttribute("products");
             if (products == null) {
                 String msg = (String) request.getAttribute("msg");
@@ -84,6 +89,7 @@
                 <td><%= p.getProductYear()%></td>
                 <td><img src="<%= p.getImage()%>" alt="product image" width="100" height="100"></td>
                 <td><%= p.getCategory().getName()%></td>
+                <% if("staff".equals(role)) { %>
                 <td>
                     <form action="Product" method="GET" style="display:inline;">
                         <input type="hidden" name="action" value="prepare-update">
@@ -99,6 +105,7 @@
                     <button type="submit">Delete</button>
                 </form>
             </td>
+            <% } %>
 
         </tr>
         <%

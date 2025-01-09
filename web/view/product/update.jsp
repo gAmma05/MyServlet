@@ -20,7 +20,6 @@
             String error = (String) request.getAttribute("msg");
             Product product = (Product) request.getAttribute("product");
         %>
-        <h1> Login Page </h1>
         <%
             if (error != null) {
         %>   
@@ -64,7 +63,7 @@
         <br>
         <br>
         <form action="Product" method="GET" style="display:inline;">
-            <input type="hidden" name="action" value="back">
+
             <button type="submit">Back</button>
         </form>
     </body>

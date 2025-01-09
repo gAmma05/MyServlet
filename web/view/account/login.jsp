@@ -31,7 +31,14 @@
             <label>Password: </label>
             <input type="password" name="password">
 
+            <input type="hidden" name="action" value="login">
             <input type="submit" value="Login">
+        </form>
+        
+        <br>
+        <form action="Register" method="GET">
+            <!--input type="hidden" name="action" value="register"-->
+            <input type="submit" value="Register">
         </form>
     </body>
 </html>
