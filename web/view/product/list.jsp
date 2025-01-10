@@ -28,17 +28,10 @@
 
             <label>Category:</label>
             <select name="category" id="category">
-                <%
-                    List<Category> categories = (List<Category>) request.getAttribute("categories");
-                    if (categories != null) {
-                        for (Category category : categories) {
-                %>
-                <option value="<%= category.getId()%>"><%= category.getName()%></option>
-                <%
-                        }
-                    }
-                %>
-                <option value="<%=""%>"><%= "All categories"%></option>
+                <c:forEach var="category" items="${categories}">
+                    <option value="${category.id}" ${category.id == product.category.id ? 'selected' : ''}>${category.name}</option>
+                </c:forEach>
+                    <option value="">All categories</option>
 
 
             </select>

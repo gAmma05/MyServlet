@@ -7,6 +7,7 @@
 <%@page import="entities.Product"%>
 <%@page import="entities.Category"%>
 <%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,45 +17,29 @@
     </head>
     <body>
         <h1>Update an existing product</h1>
-        <%
-            String error = (String) request.getAttribute("msg");
-            Product product = (Product) request.getAttribute("product");
-        %>
-        <%
-            if (error != null) {
-        %>   
-        <p><%=error%></p>
-        <%
-            }
-        %>
+        <c:if test="${not empty msg}">
+            <p>${msg}</p>
+        </c:if>
         <form action="Product" method="POST">
-            <input type="hidden" name="productId" value="<%= product.getId()%>">
+            <input type="hidden" name="productId" value="${product.id}">
 
             <label for="name"> Product Name:</label>
-            <input type="text" id="name" name="name" value="<%= product.getName()%>" required><br><br>
+            <input type="text" id="name" name="name" value="${product.name}" required><br><br>
 
             <label for="price">Price:</label>
-            <input type="number" id="price" name="price" step="0.01" value="<%= product.getPrice()%>" required><br><br>
+            <input type="number" id="price" name="price" step="0.01" value="${product.price}" required><br><br>
 
             <label for="productYear">Product Year:</label>
-            <input type="number" id="productYear" name="productYear" value="<%= product.getProductYear()%>" required><br><br>
+            <input type="number" id="productYear" name="productYear" value="${product.productYear}" required><br><br>
 
             <label for="image">Image URL:</label>
-            <input type="text" id="image" name="image" value="<%=product.getImage()%>"><br><br>
+            <input type="text" id="image" name="image" value="${product.image}"><br><br>
 
             <label for="category">Category:</label>
             <select id="category" name="category" required>
-                <%
-                    List<Category> categories = (List<Category>) request.getAttribute("categories");
-                    if (categories != null) {
-                        for (Category category : categories) {
-                            boolean prec = product != null && category.getId() == product.getCategory().getId();
-                %>
-                <option value="<%= category.getId()%>" <%= prec ? "selected" : ""%>><%= category.getName()%></option>
-                <%
-                        }
-                    }
-                %>
+                <c:forEach var="category" items="${categories}">
+                    <option value="${category.id}" ${category.id == product.category.id ? 'selected' : ''}>${category.name}</option>
+                </c:forEach>
             </select><br><br>
             <input type="hidden" name="action" value="update">
             <button type="submit">Update</button>

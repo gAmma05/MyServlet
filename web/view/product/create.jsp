@@ -6,6 +6,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="entities.Category"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,17 +16,9 @@
     </head>
     <body>
         <h1>Add New Product</h1>
-        <%
-            String error = (String) request.getAttribute("msg");
-        %>
-        <h1>Login Page</h1> 
-        <%
-            if (error != null) {
-        %>
-        <p><%=error%></p>
-        <%
-            }
-        %>
+        <c:if test="${not empty msg}">
+            <p>${msg}</p>
+        </c:if>
         <form action="Product" method="POST">
             <label for="name">Product Name:</label>
             <input type="text" id="name" name="name" required><br><br>
@@ -41,16 +34,9 @@
 
             <label for="category">Category:</label>
             <select id="category" name="category" required>
-                <%
-                    List<Category> categories = (List<Category>) request.getAttribute("categories");
-                    if (categories != null) {
-                        for (Category category : categories) {
-                %>
-                <option value="<%= category.getId()%>"><%= category.getName()%></option>
-                <%
-                        }
-                    }
-                %>
+                <c:forEach var="category" items="${categories}">
+                    <option value="${category.id}" ${category.id == product.category.id ? 'selected' : ''}>${category.name}</option>
+                </c:forEach>
             </select><br><br>
             <input type="hidden" name="action" value="add"> <!-- parameter action to handle add new product-->
             <button type="submit">Add Product</button>
