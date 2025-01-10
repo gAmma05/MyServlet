@@ -39,6 +39,11 @@
             <input type="submit" value="Register">
         </form>
 
+        <br>
+        <form action="Auth" method="GET" style="display:inline;">
+            <button type="submit">Back</button>
+        </form>
+
 
         <!--JSTL time!!!-->
         <c:set var="password" value="${param.password}" ></c:set>

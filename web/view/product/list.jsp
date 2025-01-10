@@ -53,6 +53,12 @@
 
             <input type="submit" value="search">
         </form>
+            
+            <br>
+            <form action="Auth" method="GET">
+                <input type="hidden" name="action" value="logout">
+                <input type="submit" value="Logout">
+            </form>
 
         <br>
 

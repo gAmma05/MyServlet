@@ -55,5 +55,10 @@
             <input type="hidden" name="action" value="add"> <!-- parameter action to handle add new product-->
             <button type="submit">Add Product</button>
         </form>
+
+        <br>
+        <form action="Product" method="GET" style="display:inline;">
+            <button type="submit">Back</button>
+        </form>
     </body>
 </html>
